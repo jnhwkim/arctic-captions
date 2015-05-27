@@ -34,12 +34,14 @@ from optimizers import adadelta, adam, rmsprop, sgd
 import flickr8k
 import flickr30k
 import coco
+import pororo
 
 
 # datasets: 'name', 'load_data: returns iterator', 'prepare_data: some preprocessing'
 datasets = {'flickr8k': (flickr8k.load_data, flickr8k.prepare_data),
             'flickr30k': (flickr30k.load_data, flickr30k.prepare_data),
-            'coco': (coco.load_data, coco.prepare_data)}
+            'coco': (coco.load_data, coco.prepare_data),
+            'pororo': (pororo.load_data, pororo.prepare_data)}
 
 
 def get_dataset(name):
