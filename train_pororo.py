@@ -52,10 +52,10 @@ def main(params):
 if __name__ == "__main__":
     # These defaults should more or less reproduce the soft
     # alignment model for the MS COCO dataset
-    defaults = {"model": "my_caption_model.npz",
-                "attn-type": "deterministic",
-                "dim-word": 256,
-                "ctx-dim": 256,
+    defaults = {"model": "my_pororo.npz",
+                "attn-type": "stochastic",
+                "dim-word": 512,
+                "ctx-dim": 512,
                 "dim": 1800,
                 "n-layers-att": 2,
                 "n-layers-out": 1,

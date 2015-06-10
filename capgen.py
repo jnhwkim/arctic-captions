@@ -1306,7 +1306,8 @@ def train(dim_word=100,  # word vector dimensionality
                         else:
                             print 'UNK',
                     print
-                    for kk, ss in enumerate([sample[0]]):
+                    #for kk, ss in enumerate([sample[0]]):
+                    for kk, ss in enumerate(sample):
                         print 'Sample (', kk,') ', jj, ': ',
                         for vv in ss:
                             if vv == 0:

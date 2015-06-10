@@ -33,18 +33,10 @@ def prepare_data(caps, features, worddict, maxlen=None, n_words=10000, zero_pad=
         if len(lengths) < 1:
             return None, None, None
 
-    try:
-        feat_dim = feat_list[0].shape[1]
-    except IndexError:
-        feat_dim = feat_list[0].shape[0]
-
-    y = numpy.zeros((len(feat_list), feat_dim)).astype('float32')
+    y = numpy.zeros((len(feat_list), feat_list[0].shape[1])).astype('float32')
     for idx, ff in enumerate(feat_list):
-        if scipy.sparse.issparse(ff):
-            y[idx,:] = numpy.array(ff.todense())
-        else:
-            y[idx,:] = numpy.array(ff)
-    y = y.reshape([y.shape[0], 13*13, 256])
+        y[idx,:] = numpy.array(ff.todense())
+    y = y.reshape([y.shape[0], 14*14, 512])
 
     if zero_pad:
         y_pad = numpy.zeros((y.shape[0], y.shape[1]+1, y.shape[2])).astype('float32')
@@ -62,7 +54,7 @@ def prepare_data(caps, features, worddict, maxlen=None, n_words=10000, zero_pad=
 
     return x, x_mask, y
 
-def load_data(load_train=True, load_dev=False, load_test=False, path='../AMMA/pkl/'):
+def load_data(load_train=True, load_dev=True, load_test=False, path='../AMMA/pkl/'):
     ''' Loads the dataset
 
     :type dataset: string
@@ -75,21 +67,21 @@ def load_data(load_train=True, load_dev=False, load_test=False, path='../AMMA/pk
     print '... loading data'
 
     if load_train:
-        with open(path+'Pororo_ENGLISH3_1.pkl', 'rb') as f:
+        with open(path+'Pororo_ENGLISH2_1_3.pkl', 'rb') as f:
             train_cap = pkl.load(f)
             train_feat = pkl.load(f)
         train = (train_cap, train_feat)
     else:
         train = None
     if load_test:
-        with open(path+'Pororo_ENGLISH3_1.pkl', 'rb') as f:
+        with open(path+'Pororo_ENGLISH2_4.pkl', 'rb') as f:
             test_cap = pkl.load(f)
             test_feat = pkl.load(f)
         test = (test_cap, test_feat)
     else:
         test = None
     if load_dev:
-        with open(path+'Pororo_ENGLISH3_1.pkl', 'rb') as f:
+        with open(path+'Pororo_ENGLISH2_4.pkl', 'rb') as f:
             dev_cap = pkl.load(f)
             dev_feat = pkl.load(f)
         valid = (dev_cap, dev_feat)
